@@ -1,0 +1,440 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* SVG Icon Sizing Utilities */
+.icon-xs {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.icon-sm {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.icon-nav {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.85;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.icon-fab {
+  width: 22px;
+  height: 22px;
+  stroke: var(--text-primary);
+  stroke-width: 2.5;
+  fill: none;
+  transition: transform 0.2s ease;
+}
+
+/* ================= OUTER APPLICATION SHELL ================= */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-dark);
+  padding: 10px 10px 10px 0;
+  position: relative;
+}
+
+/* ================= LEFT NAVIGATION SIDEBAR ================= */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 12px 14px 14px;
+  transition: width 0.22s ease, padding 0.22s ease;
+  user-select: none;
+  z-index: 30;
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.minimize-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 18px;
+  padding: 2px 4px;
+}
+
+.minimize-btn:hover {
+  color: #FFFFFF;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.brand-text {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--brand-coral);
+  letter-spacing: -0.7px;
+  line-height: 1;
+}
+
+.brand-badge {
+  background-color: var(--brand-purple);
+  color: #FFFFFF;
+  font-size: 7px;
+  font-weight: 800;
+  padding: 2px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.4px;
+  margin-top: 2px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  height: 36px;
+  width: 100%;
+  padding: 0 12px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-item:hover {
+  background-color: var(--bg-dark-hover);
+  color: #FFFFFF;
+}
+
+.nav-item.active {
+  background-color: var(--bg-dark-active);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.user-avatar-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  color: var(--bg-dark);
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-name-label {
+  color: #FFFFFF;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+/* Collapsed Sidebar State (Desktop toggle & Tablet auto-collapse) */
+.app-shell.sidebar-collapsed .sidebar {
+  width: var(--sidebar-collapsed-width);
+  padding: 14px 8px;
+  align-items: center;
+}
+
+.app-shell.sidebar-collapsed .minimize-label,
+.app-shell.sidebar-collapsed .brand-logo,
+.app-shell.sidebar-collapsed .nav-label,
+.app-shell.sidebar-collapsed .user-name-label {
+  display: none;
+}
+
+.app-shell.sidebar-collapsed .minimize-btn {
+  justify-content: center;
+}
+
+.app-shell.sidebar-collapsed .minimize-btn svg {
+  transform: rotate(180deg);
+}
+
+.app-shell.sidebar-collapsed .nav-item {
+  justify-content: center;
+  padding: 0;
+}
+
+.app-shell.sidebar-collapsed .sidebar-footer {
+  justify-content: center;
+  padding: 4px 0;
+}
+
+/* ================= SLIDING ADVANCED FILTER PANEL ================= */
+.filter-panel {
+  width: var(--filter-panel-width);
+  flex-shrink: 0;
+  background-color: var(--bg-filter-panel);
+  border-radius: var(--radius-board);
+  margin-right: 8px;
+  padding: 16px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
+/* ================= MAIN WHITE BOARD ================= */
+.main-board {
+  flex: 1;
+  min-width: 0;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-board);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.top-toolbar {
+  min-height: 60px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.toolbar-left,
+.toolbar-right,
+.controls-cluster,
+.quick-pills-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mobile-menu-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--bg-pill);
+  color: var(--text-primary);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mobile-nav-backdrop {
+  display: none;
+}
+
+.workspace-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ================= TABLET BREAKPOINT (768px - 1024px) ================= */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: var(--sidebar-collapsed-width);
+    padding: 14px 8px;
+    align-items: center;
+  }
+
+  .minimize-label,
+  .brand-logo,
+  .nav-label,
+  .user-name-label {
+    display: none;
+  }
+
+  .minimize-btn {
+    justify-content: center;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .sidebar-footer {
+    justify-content: center;
+  }
+}
+
+/* ================= MOBILE BREAKPOINT (< 768px) ================= */
+@media (max-width: 767px) {
+  .app-shell {
+    padding: 0;
+  }
+
+  .main-board {
+    border-radius: 0;
+    min-height: 100vh;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    padding: 18px 14px;
+    align-items: stretch;
+    transform: translateX(-100%);
+    transition: transform 0.24s ease;
+    box-shadow: 12px 0 36px rgba(0, 0, 0, 0.45);
+  }
+
+  .app-shell.mobile-nav-open .sidebar {
+    transform: translateX(0);
+  }
+
+  .app-shell.mobile-nav-open .mobile-nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 22, 37, 0.55);
+    z-index: 25;
+  }
+
+  .brand-logo,
+  .nav-label,
+  .user-name-label {
+    display: flex;
+  }
+
+  .minimize-btn {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: flex-start;
+    padding: 0 12px;
+  }
+
+  .sidebar-footer {
+    justify-content: flex-start;
+  }
+
+  .top-toolbar {
+    padding: 10px 14px;
+  }
+
+  .filter-panel {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    margin-right: 0;
+    border-radius: 0;
+    z-index: 45;
+  }
+}
+
+.user-meta-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.app-shell.sidebar-collapsed .user-meta-stack {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  .user-meta-stack {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .app-shell.mobile-nav-open .user-meta-stack {
+    display: flex !important;
+  }
+}
