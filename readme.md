@@ -95,11 +95,3 @@ npx serve .
 
 ---
 
-## 📸 Screenshots
-
-*(Optional: Add screenshots to a `/screenshots` folder and link them here)*
-
-- `screenshots/login-rbac.png` — Role-Based Sign-In & Registration Screen  
-- `screenshots/shift-timeline.png` — Manager Shift View & Weekly Timeline  
-- `screenshots/staff-swimlanes.png` — Staff Swimlane View & Advanced Date Filter  
-- `screenshots/employee-readonly.png` — Employee Read-Only Shift Inspection Drawer
